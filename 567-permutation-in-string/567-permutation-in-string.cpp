@@ -8,25 +8,21 @@ public:
     //     return true;
     // }
     bool checkInclusion(string s1, string s2) {
+        vector<int> m(26,0),p(26,0);
         if(s1.length() > s2.length())
             return false;
-       vector<int> m(26,0),p(26,0);
-        for(int i=0;i<s1.length();i++)
+        for(int i=0;i<s1.length();i++){
             m[s1[i] - 'a']++;
-        int i;
-        for(int i=0;i<s1.length();i++)
             p[s2[i] - 'a']++;
-        
-        for(int i = s1.length();i<s2.length();i++){
-            
-            if( m==p )
-                return true;
-            p[s2[i] -'a' ]++;
-            p[ s2[i-s1.length()] -'a' ]--;
-            
         }
-        if( m==p )
-            return true;
+        for(int i=s1.length();i<s2.length();i++){
+            if(m==p)
+                return true;
+            p[s2[i] - 'a']++;
+            p[s2[i-s1.length()] - 'a']--;
+        }
+         if(m==p)
+                return true;
         return false;
         
     }
