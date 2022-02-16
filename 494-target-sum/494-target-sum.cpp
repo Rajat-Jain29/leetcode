@@ -27,10 +27,11 @@ public:
         for(int i=0;i<nums.size();i++){
             s+=nums[i];
         }
-        if((target+s)%2 != 0 || s<abs(target)) 
+        int sum = (s-target)/2;
+        if((s-target)%2 != 0 || (s-target)<0 ) 
             return 0;
         
-        int sum = (s+target)/2;
+        
         return subsetSum(nums,sum);
         
     }
