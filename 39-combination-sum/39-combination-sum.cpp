@@ -1,34 +1,26 @@
 class Solution {
 public:
-    void findComb(int index,vector<int> &candidates,int target,vector<vector<int>> &res,vector<int> &ds){
-        if(candidates.size() == index){
-            if(target == 0)
-                res.push_back(ds);
+    vector<vector<int>> res;
+    void find(int i,vector<int>& nums, int k,vector<int> &p){
+        if(nums.size() == i){
+            if(k==0)
+                res.push_back(p);
             return ;
         }
         
-        if(candidates[index] <= target){
-            
-            ds.push_back(candidates[index]);
-            findComb(index,candidates,target - candidates[index] ,res,ds);
-            ds.pop_back();
+        if(nums[i] <= k ){
+            p.push_back(nums[i]);
+            find(i,nums,k-nums[i],p);
+            p.pop_back();
         }
         
-        findComb(index+1,candidates,target,res,ds);
-        
+        find(i+1,nums,k,p);
     }
     
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-       
-       
-        
-        
-        
-        
-        
-        vector<vector<int>> res;
-        vector<int> ds;
-        findComb(0,candidates,target,res,ds);
+        vector<int> p;
+        find(0,candidates,target,p);
         return res;
+      
     }
 };
