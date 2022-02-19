@@ -13,19 +13,21 @@ class Solution{
     int cutRod(int price[], int n) {
         //code here
         vector<vector<int>> dp(n,vector<int>(n+1,0));
+        vector<int> prev(n+1,0) , curr(n+1,0);
         for(int i=0;i<=n;i++)
-            dp[0][i] = (i)*price[0];
+            prev[i] = (i)*price[0];
             
         for(int i=1;i<n;i++){
             for(int j=0;j<=n;j++){
-                int no = 0 + dp[i-1][j];
+                int no = 0 + prev[j];
                 int take = INT_MIN;
                 if( (i+1) <= j)
-                    take = price[i] + dp[i][j-(i+1)];
-                dp[i][j] = max(no,take);    
+                    take = price[i] + curr[j-(i+1)];
+                curr[j] = max(no,take);    
             }
+            prev = curr;
         }
-        return dp[n-1][n];
+        return prev[n];
     }
 };
 
