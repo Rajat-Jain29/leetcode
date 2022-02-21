@@ -5,17 +5,10 @@ public:
         for(int i=0;i<s.length();i++){
             m[s[i]]++;
         }
-        char p ;
-        for(auto it : m){
-            if(it.second == 1){
-               p = it.first;
-            }
-                
-            
-        }
-        for(int i=0;i<s.length();i++)
-            if(s[i] == p)
+        for(int i=0;i<s.length();i++){
+            if(m[s[i]] == 1)
                 return i;
+        }
         return -1;
     }
 };
