@@ -1,8 +1,8 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        if(strs.size() == 0 )
-          return 0;
+        // if(strs.size() == 0 )
+        //   return 0;
         string pre = strs[0];
         for(int i=1;i<strs.size();i++){
             while(strs[i].find(pre) != 0 ){
