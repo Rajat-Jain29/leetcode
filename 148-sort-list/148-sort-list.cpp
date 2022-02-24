@@ -64,25 +64,22 @@ public:
             head=head->next;
         }
         sort(p.begin(),p.end());
+       
         ListNode *res;
-        
-        ListNode *v = NULL;
+        ListNode *dummy =NULL ; 
         for(int i=0;i<p.size();i++){
             res = new ListNode();
             res->val = p[i];
-            res->next = v;
-            v = res;
+            res->next = dummy;
+            dummy = res;
         }
-        
         ListNode *temp = NULL;
         while(res!=NULL){
             ListNode *nx = res->next;
-            res->next=temp;
+            res->next = temp;
             temp=res;
             res=nx;
         }
-        return temp;
-        
         return temp;
         // merge(&head);
         // return head;
