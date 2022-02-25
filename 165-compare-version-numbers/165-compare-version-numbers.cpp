@@ -33,10 +33,7 @@ public:
                 q.push_back(0);
             }
         }
-        if(p==q){
-            return 0;
-        }
-        else{
+        
             for(int i=0;i<p.size();i++){
                 if(p[i] == q[i])
                     continue;
@@ -47,13 +44,7 @@ public:
                     return -1;
                 }
             }
-        }
-        for(int i=0;i<p.size();i++)
-            cout<<p[i]<<" ";
-        cout<<endl;
-        for(int i=0;i<q.size();i++)
-            cout<<q[i]<<" ";
-        cout<<endl;
+        
         return 0;
     }
 };
