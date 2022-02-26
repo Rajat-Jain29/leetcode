@@ -57,30 +57,31 @@ public:
     
     
     ListNode* sortList(ListNode* head) {
-       vector<int> p;
-        ListNode *curr = head;
+        vector<int> p;
         while(head!=NULL){
             p.push_back(head->val);
             head=head->next;
         }
         sort(p.begin(),p.end());
-       
-        ListNode *res;
-        ListNode *dummy =NULL ; 
+        ListNode *res = NULL;
+         ListNode * temp;
         for(int i=0;i<p.size();i++){
-            res = new ListNode();
-            res->val = p[i];
-            res->next = dummy;
-            dummy = res;
+            ListNode *newNode = new ListNode();
+            newNode->val = p[i];
+            newNode->next=NULL;
+            if(res == NULL){
+                res = newNode;
+                // continue;
+                 temp = res;
+            }
+          else{
+            while(temp->next!=NULL){
+                temp=temp->next;
+            }
+            temp->next = newNode;
+          }
         }
-        ListNode *temp = NULL;
-        while(res!=NULL){
-            ListNode *nx = res->next;
-            res->next = temp;
-            temp=res;
-            res=nx;
-        }
-        return temp;
+        return res;
         // merge(&head);
         // return head;
     }
