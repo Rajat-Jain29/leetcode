@@ -1,3 +1,4 @@
+
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
@@ -8,7 +9,8 @@ public:
             if(m.find(i) == m.end())
                 return i;
         }
-       return nums.size()+1;
+       return m.size()+1;
+        
 //     int n = nums.size();
         
 //      for(int i=0;i<n;i++){
