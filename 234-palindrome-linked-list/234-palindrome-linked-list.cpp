@@ -10,51 +10,54 @@
  */
 class Solution {
 public:
-    bool palin(vector<int> & p){
-        int l = 0;
-        int r = p.size()-1;
-        while(l<r){
-            if(p[l] != p[r])
-                return false;
-            l++;
-             r--;
+    // bool palin(vector<int> & p){
+    //     int l = 0;
+    //     int r = p.size()-1;
+    //     while(l<r){
+    //         if(p[l] != p[r])
+    //             return false;
+    //         l++;
+    //          r--;
+    //     }
+    //     return true;
+    // }
+    ListNode* rev(ListNode *head){
+        ListNode *temp = NULL;
+        while(head!=NULL){
+            ListNode *nx = head->next;
+            head->next = temp;
+            temp=head;
+            head=nx;
         }
-        return true;
+        return temp;
     }
     bool isPalindrome(ListNode* head) {
-        vector<int> p;
-        if(head == NULL)
-            return true;
-        while(head!=NULL){
-            p.push_back(head->val);
+        // vector<int> p;
+        // if(head == NULL)
+        //     return true;
+        // while(head!=NULL){
+        //     p.push_back(head->val);
+        //     head=head->next;
+        // }
+        //     return palin(p);
+       
+        
+        ListNode *slow = head;
+        ListNode *fast =head;
+        while(fast->next != NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast=fast->next->next;
+        }
+        slow->next = rev(slow->next);
+        slow=slow->next;
+        
+        while(slow != NULL){
+            if(head->val != slow->val)
+                return false;
+            slow=slow->next;
             head=head->next;
         }
-            return palin(p);
-//         ListNode *z=head;
-//         vector<int> p,q;
-//         while(head!=NULL){
-//             p.push_back(head->val);
-//             head=head->next;
-//         }
-//          ListNode *temp = NULL;
-//         while(z!=NULL){
-//             ListNode *nx = z->next;
-//             z->next=temp;
-//             temp=z;
-//             z=nx;
-            
-//         }
-//          while(temp!=NULL){
-//             q.push_back(temp->val);
-//             temp=temp->next;
-//         }
-//         return p==q;
-        
-        // for(int i=0;i<p.size();i++){
-        //     if(p[i]!=q[i])
-        //         return false;
-        // }
-        // return true;
+        return true;
        
     }
 };
