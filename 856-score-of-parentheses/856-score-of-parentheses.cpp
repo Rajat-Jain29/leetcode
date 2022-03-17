@@ -9,7 +9,7 @@ public:
                 cur = 0;
             }
             else {
-                cur += stack.top() + max(cur, 1);
+                cur = stack.top() + max(2*cur, 1);
                 stack.pop();
             }
         return cur;
