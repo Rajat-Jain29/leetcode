@@ -9,16 +9,14 @@ public:
         //    res.push_back( costs[i][1] - costs[i][0] );
         }
         int sum = 0;
-        int i = 0;
         while(q.size() > n){
             vector<int> p =  q.top().second;
             sum += p[0];
             q.pop();
         }
         while(q.size() > 0){
-             vector<int> p =  q.top().second;
+            vector<int> p =  q.top().second;
             sum += p[1];
-            
             q.pop();
         }
         
