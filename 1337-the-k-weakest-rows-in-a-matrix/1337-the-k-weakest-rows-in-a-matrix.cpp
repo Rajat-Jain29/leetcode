@@ -13,13 +13,11 @@ public:
             q.push( {k , i});
         }
         
-        while(q.size() > 0){
-            res.push_back( q.top().second );
+        while(k--){
+            res.push_back(q.top().second);
             q.pop();
         }
-        for(int i=0;i<k;i++)
-            w.push_back(res[i]);
-        return w;
+        return res;
         
     }
 };
