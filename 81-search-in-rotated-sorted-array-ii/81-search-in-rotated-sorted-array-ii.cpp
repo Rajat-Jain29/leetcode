@@ -1,17 +1,21 @@
 class Solution {
 public:
     bool search(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
+       
         int i = 0;
         int j = nums.size()-1;
         while(i<=j){
-            int m = (i+j)/2;
-            if(target == nums[m])
+            if(target == nums[i] || target == nums[j] )
                 return true;
-            else if(nums[m] > target)
-                j = m-1;
+            else if(nums[i] < target){
+                i++;
+            }
+            else if(nums[j] > target){
+                j--;
+            }
             else
-                i=m+1;
+                break;
+            
         }
         return false;
     }
