@@ -17,7 +17,7 @@ public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
         for(int i=0;i<matrix.size();i++){
-           if(matrix[i][matrix[0].size()-1] >= target  && matrix[i][0] <= target  ){
+           if(matrix[i][matrix[0].size()-1] >= target   ){
                 if(binaryy(matrix[i] , target))
                     return true;
                 else
