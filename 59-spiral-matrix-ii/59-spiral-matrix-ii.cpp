@@ -3,7 +3,7 @@ public:
     vector<vector<int>> generateMatrix(int n) {
         vector<vector<int>> res(n,vector<int>(n));
         int k=1,i,j,m,v,x;
-        for( i=0;i<n;i++){
+        for( i=0;i<(n+1)/2;i++){
             for( j=i;j<n-i;j++){
                 res[i][j] = k; 
                k++;
