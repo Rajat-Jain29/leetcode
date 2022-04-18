@@ -21,12 +21,13 @@ public:
     }
     int kthSmallest(TreeNode* root, int k) {
         inorder(root);
-        priority_queue<int> q;
-        for(int i=0;i<p.size() ;i++){
-            q.push(p[i]);
-            if(q.size() > k)
-                q.pop();
-        }
-        return q.top();
-    }
+        return p[k-1];
+    //     priority_queue<int> q;
+    //     for(int i=0;i<p.size() ;i++){
+    //         q.push(p[i]);
+    //         if(q.size() > k)
+    //             q.pop();
+    //     }
+    //     return q.top();
+     }
 };
