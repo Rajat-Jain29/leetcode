@@ -1,37 +1,39 @@
 class Solution {
 public:
-     void dfs(vector<vector<int>>&graph,vector<int>&vis,vector<int>&idx,int node,string &s,string &st){
-        vis[node]=1;
-        st+=s[node];
-        idx.push_back(node);
-        for(int i=0;i<graph[node].size();i++){
-            if(!vis[graph[node][i]]){
-                dfs(graph,vis,idx,graph[node][i],s,st);
-            }
+    static const int N = 1e5+1;
+    vector<int> adj[N];
+    bool vis[N];
+    void dfs(int i,string &s,vector<int> &index,vector<char> &c){
+        index.push_back(i);
+        c.push_back(s[i]);
+        vis[i] = true;
+        for(auto it: adj[i]){
+            if(!vis[it])
+                dfs(it,s,index,c);
         }
     }
-    
     string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
-        vector<vector<int>>graph(s.size());
-        
-        for(int i=0;i<pairs.size();i++){
-            graph[pairs[i][0]].push_back(pairs[i][1]);
-            graph[pairs[i][1]].push_back(pairs[i][0]);
-        }
-        vector<int>vis(graph.size(),0);
-        for(int i=0;i<graph.size();i++){
-            if(!vis[i]){
-                vector<int>index;
-                string st="";
-                dfs(graph,vis,index,i,s,st);
-                sort(begin(index),end(index));
-                sort(begin(st),end(st));
-                for(int j=0;j<st.size();j++){
-                    s[index[j]]=st[j];
-                }
-                
-            }
-        }
+       for(auto it : pairs){
+           int src=it[0];
+           int dest=it[1];
+           
+           adj[src].push_back(dest);
+           adj[dest].push_back(src);
+       }
+       for(int i=0;i<s.length();i++){
+           if(!vis[i]){
+               vector<int> index;
+               vector<char> c;
+               dfs(i,s,index,c);
+               sort(index.begin(),index.end());
+               sort(c.begin(),c.end());
+               
+               for(int j=0;j<c.size();j++)
+                   s[index[j]] = c[j];
+           }
+           
+           
+       } 
         return s;
     }
 };
