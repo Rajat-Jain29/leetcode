@@ -1,20 +1,27 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        vector<int> p,q;
-        for(int i=0;i<matrix.size();i++){
-            for(int j=0;j<matrix[i].size();j++){
-                if(matrix[i][j] == 0)
-                    p.push_back(i) , q.push_back(j);
+        int col0 = 1;
+        int n = matrix.size();
+        int m = matrix[0].size();
+        for(int i=0;i<n;i++){
+            if(matrix[i][0] == 0)
+                col0 = 0;
+            for(int j=1;j<m;j++){
+                if(matrix[i][j] ==0){
+                    matrix[i][0] =0;
+                    matrix[0][j] = 0;
+                }
             }
         }
-
-        for(int i=0;i<matrix.size();i++){
-            for(int j=0;j<matrix[i].size();j++){
-                if( find(p.begin(),p.end(),i) != p.end() || find(q.begin(),q.end(),j) != q.end()  ){
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=1;j--){
+                if(matrix[i][0] == 0 || matrix[0][j] == 0)
                     matrix[i][j] = 0;
-                }  
+               
             }
+             if(col0 == 0)
+                    matrix[i][0] = 0;
         }
     }
 };
