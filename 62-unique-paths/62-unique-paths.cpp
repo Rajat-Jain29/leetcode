@@ -25,7 +25,7 @@ public:
 //         return dp[m-1][n-1];
         
         int M = m+n-2;
-        int N = m-1;
+        int N = n-1;
         double res = 1;
         for(int i=1;i<=N;i++){
             res = res*(M-N+i)/i;
