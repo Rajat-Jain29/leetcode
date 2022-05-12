@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> helper(vector<int> nums){
+    vector<vector<int>> helper(vector<int> &nums){
         if(nums.size() == 0)
             return {{}};
         vector<vector<int>> res;
