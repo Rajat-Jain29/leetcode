@@ -10,54 +10,33 @@
  */
 class Solution {
 public:
-    // bool palin(vector<int> & p){
-    //     int l = 0;
-    //     int r = p.size()-1;
-    //     while(l<r){
-    //         if(p[l] != p[r])
-    //             return false;
-    //         l++;
-    //          r--;
-    //     }
-    //     return true;
-    // }
-    ListNode* rev(ListNode *head){
-        ListNode *temp = NULL;
-        while(head!=NULL){
-            ListNode *nx = head->next;
-            head->next = temp;
-            temp=head;
-            head=nx;
+    ListNode* rev(ListNode *temp){
+        ListNode *res = NULL;
+        while(temp!=NULL){
+            ListNode *nx = temp->next;
+            temp->next = res;
+            res = temp; 
+            temp=nx;
         }
-        return temp;
+        return res;
     }
     bool isPalindrome(ListNode* head) {
-        // vector<int> p;
-        // if(head == NULL)
-        //     return true;
-        // while(head!=NULL){
-        //     p.push_back(head->val);
-        //     head=head->next;
-        // }
-        //     return palin(p);
-       
-        
+        if(head==NULL || head->next==NULL )
+            return true;
         ListNode *slow = head;
-        ListNode *fast =head;
-        while(fast->next != NULL && fast->next->next != NULL){
-            slow = slow->next;
+        ListNode *fast = head;
+        while(fast->next!= NULL && fast->next->next!=NULL){
+            slow=slow->next;
             fast=fast->next->next;
         }
         slow->next = rev(slow->next);
-        slow=slow->next;
-        
+        slow = slow->next;
         while(slow != NULL){
             if(head->val != slow->val)
                 return false;
-            slow=slow->next;
             head=head->next;
+            slow=slow->next;
         }
         return true;
-       
     }
 };
