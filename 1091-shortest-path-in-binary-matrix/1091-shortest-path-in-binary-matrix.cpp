@@ -1,36 +1,34 @@
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        int n = grid.size();
-        if(grid[0][0] == 1){
+        if(grid[0][0] == 1)
             return -1;
-        }
-        vector<vector<int>> visited(n, vector<int>(n, -1));
-        visited[0][0] = 1;
-        
-        int arri[8] = {-1, -1, 0, +1, +1, +1, 0, -1};
-        int arrj[8] = {0, +1, 1, 1, 0, -1, -1, -1};
-        
-        queue<pair<int, int>> q;
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<pair<int,int>> q;
+        int sol = 1;
         q.push({0,0});
-        
+        grid[0][0] = 1;
+        int dir[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
         while(!q.empty()){
-            pair<int, int> temp = q.front(); q.pop();
-            int x = temp.first;
-            int y = temp.second;
-            
-            for(int k=0; k<8; k++){
-                int i = x + arri[k];
-                int j = y + arrj[k];
-                
-                if(i>=0 && j>=0 && i<n && j<n && grid[i][j] == 0 && visited[i][j] == -1){
-                    visited[i][j] = visited[x][y] + 1;
-                    q.push({i, j});
+            int s = q.size();
+            while(s--){
+                int x = q.front().first;
+                int y = q.front().second;
+                q.pop();
+                if( x == m-1 && y ==n-1)
+                    return sol;
+                for(auto d : dir){
+                    int r = x + d[0];
+                    int c = y + d[1];
+                    if(r>=0 && r<m  && c>=0 && c<n && grid[r][c] ==0){
+                        q.push( {r,c} );
+                        grid[r][c] = 1;
+                    }
                 }
             }
+            sol++;
         }
-        
-        return visited[n-1][n-1];
-        
+        return -1;
     }
 };
