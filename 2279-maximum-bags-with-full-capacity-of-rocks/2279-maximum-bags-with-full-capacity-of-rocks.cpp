@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maximumBags(vector<int>& capacity, vector<int>& rocks, int additionalRocks) {
+        priority_queue<int,vector<int>,greater<int>> p;
+        for(int i=0;i<rocks.size();i++){
+            p.push(capacity[i] - rocks[i]);
+        }
+        int k = p.size();
+        int b = 0;
+        while(k >0 && additionalRocks >= p.top()){
+            additionalRocks -= p.top();
+            b++;
+            k--;
+            p.pop();
+        }
+        return b;
+    }
+};
