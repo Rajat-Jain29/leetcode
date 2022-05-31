@@ -31,7 +31,7 @@ class Solution
         // Your code here
         sort(arr , arr+n , comp);
         double res = 0.0;
-        double curr = 0;
+        double curr = 0.0;
         for(int i=0;i<n;i++){
             if(curr + arr[i].weight <= W){
                 curr += arr[i].weight;
@@ -39,7 +39,7 @@ class Solution
             }
             else{
                 double rem = W-curr;
-                res += ((double)arr[i].value/(double)arr[i].weight)*(double)rem;
+                res += ((double)arr[i].value*(double)rem)/(double)arr[i].weight;
                 break;
             }
         }
