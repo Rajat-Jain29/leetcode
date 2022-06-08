@@ -1,25 +1,18 @@
 class Solution {
 public:
-    
-    bool isPalindrome(string s){
-        int i = 0;
-        int j = s.length()-1;
-        bool ans = true;
+    bool isPalin(string s){
+        int i=0;
+        int j=s.length()-1;
         while(i<j){
-            if(s[i] == s[j]){
-                i++;
-                j--;
-            }
-            else{
-                ans = false;
-                break;
-            }
-                
+            if(s[i] != s[j])
+                return false;
+            i++;
+            j--;
         }
-        return ans;
+        return true;
     }
     int removePalindromeSub(string s) {
-       if( isPalindrome(s) )
+        if( isPalin(s))
             return 1;
         return 2;
     }
