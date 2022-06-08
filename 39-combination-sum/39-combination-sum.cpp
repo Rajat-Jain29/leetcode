@@ -1,26 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> res;
-    void find(int i,vector<int>& nums, int k,vector<int> &p){
-        if(nums.size() == i){
-            if(k==0)
-                res.push_back(p);
-            return ;
-        }
+    void solve(int i,vector<int> &p,vector<int>& candidates, int target,int sum){
         
-        if(nums[i] <= k ){
-            p.push_back(nums[i]);
-            find(i,nums,k-nums[i],p);
+        if( i == candidates.size() ){
+            if( target == 0 ){
+                res.push_back(p);
+            }
+               return;
+        }
+        if(candidates[i] <= target){
+            p.push_back(candidates[i]);
+            solve(i,p,candidates,target-candidates[i],sum);
             p.pop_back();
         }
-        
-        find(i+1,nums,k,p);
+        solve(i+1,p,candidates,target,sum);
     }
     
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<int> p;
-        find(0,candidates,target,p);
+        solve(0,p,candidates,target,0);
         return res;
-      
+        
     }
 };
