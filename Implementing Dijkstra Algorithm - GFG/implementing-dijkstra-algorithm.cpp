@@ -14,7 +14,7 @@ class Solution
         vector <int> k;
         priority_queue< pair<int,int> , vector<pair<int,int>> , greater<pair<int,int>> > p;
         // dist,node
-        vector<int> dist(V,INT_MAX);
+        vector<int> dist(V+1,INT_MAX);
         p.push({0,S});
         dist[S] = 0;
         while(!p.empty()){
