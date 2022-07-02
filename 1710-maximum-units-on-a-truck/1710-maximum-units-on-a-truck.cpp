@@ -9,7 +9,6 @@ public:
         }
         int sum = 0 , res = 0;
         while(!q.empty()){
-            sum += q.top().second;
             int x = min(q.top().second,truckSize);
             res += (q.top().first * x );
             q.pop();
