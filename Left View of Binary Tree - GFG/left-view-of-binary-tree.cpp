@@ -139,9 +139,10 @@ vector<int> leftView(Node *root)
         int s = q.size();
         for(int i=0;i<s;i++){
             Node *x = q.front();
-            q.pop();
             if(i==0)
                 p.push_back(x->data);
+            q.pop();
+            
             if(x->left != NULL)
                 q.push(x->left);
             if(x->right != NULL)
