@@ -5,7 +5,7 @@ public:
         while(x > 0){
             int p = x %10;
             if(res >= INT_MAX/10 || res <= INT_MIN/10)
-                return false;
+                return 0;
             res = res*10 + p;
             x = x/10;
         }
