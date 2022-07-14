@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* TreeBuild(vector<int> &pre,int pres,int pree,vector<int> &in,int ins,int ine,unordered_map<int,int> &m){
-        if(pres > pree || ins > ine)
+      unordered_map<int,int> m;
+    TreeNode* solve(vector<int>& preorder,int prestart,int prend,vector<int>& inorder,int instart,int inend){
+        
+        if(prestart > prend || instart > inend )
             return NULL;
-        TreeNode *node = new TreeNode( pre[pres] );
-        int inroot = m[node->val];
-        int nums = inroot - ins;
-        node->left = TreeBuild(pre,pres+1,pres+nums , in , ins,inroot-1,m);
-        node->right = TreeBuild(pre,pres+nums+1,pree , in , inroot +1,ine,m);
-        return node;
+        TreeNode *root = new TreeNode( preorder[prestart] );
+        int val = m[root->val];
+        int number = val - instart;
+        root->left = solve(preorder,prestart+1,prestart+number,inorder,instart,val-1 );
+        root->right = solve(preorder,prestart+number+1,prend,inorder,val+1,inend);
+        return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        unordered_map<int,int> m;
-        for(int i=0;i<inorder.size() ;i++)
+      
+        for(int i=0;i<inorder.size();i++)
             m[inorder[i]] = i;
-        
-        TreeNode *root = TreeBuild( preorder , 0 , preorder.size()-1,                                                             inorder,0,inorder.size()-1,m);
+        TreeNode *root = solve(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1);
         return root;
         
     }
