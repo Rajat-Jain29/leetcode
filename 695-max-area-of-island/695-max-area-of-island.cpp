@@ -4,6 +4,7 @@ public:
         if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || grid[i][j] == 0 || vis[i][j] == 1)
             return 0;
         vis[i][j] = 1;
+       
         return 1+dfs(vis,grid,i,j+1) + dfs(vis,grid,i+1,j)+dfs(vis,grid,i,j-1)+dfs(vis,grid,i-1,j);        
     }
     int maxAreaOfIsland(vector<vector<int>>& grid) {
