@@ -15,10 +15,10 @@ public:
         while(root != NULL){
             if(root->val == val)
                 return root;
-            else if(root->val > val)
-                root = root->left;
+            else if(root->val > val )
+                root=root->left;
             else
-                root = root->right;
+                root=root->right;
         }
         return root;
     }
