@@ -11,15 +11,15 @@
  */
 class Solution {
 public:
-    bool solve(TreeNode* root,TreeNode *minn,TreeNode *maxx){
-        if(root == NULL)
+    bool solve(TreeNode* root,TreeNode* minn,TreeNode* maxx){
+        if(root==NULL)
             return true;
-       if(minn != NULL && root->val <= minn->val  ||  maxx !=NULL && root->val >= maxx->val)
+        if(minn != NULL && root->val <= minn->val  || maxx != NULL && root->val >= maxx->val )
             return false;
         
-        return solve(root->left , minn,root) && solve(root->right, root,maxx);
+        return solve(root->left , minn,root) && solve(root->right,root,maxx);
     }
     bool isValidBST(TreeNode* root) {
-        return solve(root, NULL,NULL);
+        return solve(root,NULL,NULL);
     }
 };
