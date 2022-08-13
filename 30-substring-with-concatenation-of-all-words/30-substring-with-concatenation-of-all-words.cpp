@@ -14,13 +14,11 @@ public:
             for(;j<total;j++){
                 int ind = i+j*len;
                 string word = s.substr(ind,len);
-                if( m.find(word) != m.end()  ){
-                    seen[word]++;
-                    if(seen[word] > m[word] )
-                        break; 
-                }
-                else
+                if( m.find(word) == m.end()  )
                     break;
+                seen[word]++;
+                if(seen[word] > m[word] )
+                    break; 
             }
             if( j == total)
                 res.push_back(i);
