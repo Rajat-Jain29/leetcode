@@ -1,37 +1,19 @@
 class Solution {
 public:
-    // int f(int ind,int prev,vector<int> &a){
-    //     if(ind == a.size())
-    //         return 0;
-    //     int len = 0 + f(ind+1,prev,a);
-    //     if(prev == -1 || a[ind] > a[prev])
-    //         len = max(len, 1 + f(ind+1,ind,a) );
-    //     return len;
-    // }
+   
+    int solve(vector<int>& nums,int ind,int prev,vector<vector<int>> &dp){
+        if(ind == nums.size())
+            return 0;
+        if(dp[ind][prev+1] != -1)
+            return dp[ind][prev+1];
+        int len = 0 + solve(nums,ind+1,prev,dp);
+        if(prev == -1 || nums[ind] > nums[prev])
+            len = max(len , 1 + solve(nums,ind+1,ind,dp));
+        return dp[ind][prev+1]=len;
+    }
     int lengthOfLIS(vector<int>& nums) {
-        // return f(0,-1,nums);
-        
-        
-        // int n = nums.size();
-        // vector<vector<int>> dp(n+1,vector<int>(n+1,0));
-        // for(int i=n-1;i>=0;i--){
-        //     for(int prev=i-1;prev>=-1;prev--){
-        //         int len = 0 + dp[i+1][prev+1];
-        //         if(prev == -1 || nums[i] > nums[prev])
-        //             len = max(len , 1 + dp[i+1][i+1] );
-        //         dp[i][prev+1] = len;
-        //     }
-        // }
-        // return dp[0][-1+1];
-        
         int n = nums.size();
-        vector<int> dp(nums.size() , 1);
-        for(int i=0;i<n;i++){
-            for(int j=0;j<i;j++){
-                if(nums[j] < nums[i])
-                    dp[i] = max(dp[i] , 1 + dp[j]);
-            }
-        }
-        return *max_element(dp.begin(),dp.end());
+        vector<vector<int>> dp(n,vector<int>(n+1,-1));
+        return solve(nums,0,-1,dp);
     }
 };
