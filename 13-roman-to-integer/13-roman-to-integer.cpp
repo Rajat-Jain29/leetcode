@@ -9,7 +9,7 @@ public:
         m['C'] = 100;
         m['D'] = 500;
         m['M'] = 1000;
-        int res = m[s.length()-1];
+        int res = 0;
         for(int i=s.length()-1;i>=0;i--){
             if(m[s[i]] < m[s[i+1]])
                 res -= m[s[i]];
