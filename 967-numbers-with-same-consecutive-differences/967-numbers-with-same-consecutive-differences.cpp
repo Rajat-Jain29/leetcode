@@ -1,18 +1,24 @@
 class Solution {
 public:
-    vector<int> numsSameConsecDiff(int N, int K) {
-        vector<int> cur = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        for (int i = 2; i <= N; ++i) {
-            vector<int> cur2;
-            for (int x : cur) {
-                int y = x % 10;
-                if (y + K < 10)
-                    cur2.push_back(x * 10 + y + K);
-                if (K > 0 && y - K >= 0)
-                    cur2.push_back(x * 10 + y - K);
-            }
-            cur = cur2;
+    void dfs(int n,int i,int k,vector<int> &res){
+        if( n == 0){
+            res.push_back(i);
+            return ;
         }
-        return cur;
+        int l = i%10;
+        if( l+k < 10 )
+            dfs( n-1, i*10 + l + k ,k,res );
+        if( l-k >=0 && k>0 )
+            dfs(n-1 , i*10 + l - k , k , res);
+            
+    }
+    vector<int> numsSameConsecDiff(int n, int k) {
+        if(n == 1)
+            return {1,2,3,4,5,6,7,8,9};
+        vector<int> res;
+        for(int i=1;i<10;i++){
+            dfs( n-1 , i , k ,res  );
+        }
+        return res;
     }
 };
