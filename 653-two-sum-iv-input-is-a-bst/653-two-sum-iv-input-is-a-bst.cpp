@@ -12,18 +12,18 @@
 class Solution {
 public:
     vector<int> p;
-    void in(TreeNode* root){
+    void inorder(TreeNode *root){
         if(root == NULL)
             return;
+        inorder(root->left);
         p.push_back(root->val);
-        in(root->left);
-        in(root->right);
+        inorder(root->right);
     }
     bool findTarget(TreeNode* root, int k) {
-        in(root);
+        inorder(root);
         unordered_map<int,int> m;
         for(int i=0;i<p.size();i++){
-            if( m.find( k - p[i] ) != m.end() )
+            if( m.find( k - p[i]  ) != m.end() )
                 return true;
             m[p[i]] = i;
         }
