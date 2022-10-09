@@ -15,8 +15,8 @@ public:
     void inorder(TreeNode *root){
         if(root == NULL)
             return;
+                p.push_back(root->val);
         inorder(root->left);
-        p.push_back(root->val);
         inorder(root->right);
     }
     bool findTarget(TreeNode* root, int k) {
