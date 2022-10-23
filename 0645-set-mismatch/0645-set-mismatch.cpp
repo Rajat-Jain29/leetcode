@@ -9,14 +9,12 @@ public:
         for(auto it : m){
             if(it.second == 2){
                 p.push_back(it.first);
-                break;
             }
         }
 
         for(int i=1;i<=nums.size();i++){
             if( find(nums.begin(),nums.end() , i) == nums.end() ){
                 p.push_back(i);
-                break;
             }
                 
         }
