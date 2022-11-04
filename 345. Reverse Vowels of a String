@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+       set<char> st;
+        st.insert('a');st.insert('e');st.insert('i');st.insert('o');st.insert('u');
+        st.insert('A');st.insert('E');st.insert('I');st.insert('O');st.insert('U');
+        string vowel="";
+        for(auto val:s)
+        {
+            if(st.find(val)!=st.end())
+            vowel.push_back(val);
+        }
+        // cout<<vowel<<endl;
+        int point=vowel.size()-1;
+        for(int i=0;i<s.size();i++)
+        {
+            if(st.find(s[i])!=st.end())
+            {
+                s[i]=vowel[point];
+                point--;
+            }
+        }
+        return s;
+    }
+};
