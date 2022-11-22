@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numSquares(int target) {
+        vector<int>squares;
+        int curr = 1, currSq = 1;
+        
+        while(currSq <= target){
+            currSq = pow(curr++, 2);
+            squares.push_back(currSq);
+        }
+        
+		//Dp vector
+        vector<int>dp(target+1,INT_MAX);
+        dp[0] = 0;
+        
+		//Forming the Dp vector bottom up
+        for(int i = 1; i <= target; i++)
+            for(auto sq : squares)
+                if(i-sq>=0) dp[i] = min(dp[i], 1+dp[i-sq]);
+        
+        return dp[target];
+    }
+};
