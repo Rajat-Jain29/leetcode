@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int,int> m;
+        for(int i : arr)
+            m[i]++;
+        vector<int> p;
+        for(auto it : m){
+            if( find(p.begin(),p.end(),it.second ) != p.end() )
+                return false;
+            p.push_back(it.second);
+        }
+        return true;
+
+    }
+};
