@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool halvesAreAlike(string s) {
+        int l = s.length()/2;
+        string p = "",q="";
+        for(int i=0;i<l;i++)
+            p += s[i];
+        for(int i=l;i<s.length();i++)
+            q += s[i];
+        unordered_map<char,int> m,n;
+        for(auto it : p)
+            m[it]++;
+        for(auto it : q)
+            n[it]++;
+        int res = 0;
+        for(auto it :  m){
+            if( it.first == 'a' || it.first == 'e' || it.first == 'i' || it.first == 'o'
+                || it.first == 'u' || it.first == 'A' || it.first == 'E' || it.first == 'I'
+                || it.first == 'O' || it.first == 'U' )
+                res+=it.second;
+        }
+        for(auto it :  n){
+            if( it.first == 'a' || it.first == 'e' || it.first == 'i' || it.first == 'o'
+                || it.first == 'u' || it.first == 'A' || it.first == 'E' || it.first == 'I'
+                || it.first == 'O' || it.first == 'U' )
+                res-=it.second;
+        }
+        return res == 0;
+    }
+
+};
