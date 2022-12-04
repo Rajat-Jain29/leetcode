@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minimumAverageDifference(vector<int>& nums) {
+       
+        long long x=0 , y=0;
+        long long n = nums.size();
+        long long sum = 0;
+        long long res = 0;
+        priority_queue<pair<long long,long long>,vector<pair<long long,long long>>,greater<pair<long long,long long>>> p;
+        long long s = accumulate(nums.begin(),nums.end(),0.0);
+            for(long long i=0;i<nums.size();i++){
+                sum += nums[i];
+                long long  q = s-sum;
+                if(q==0)
+                    y=0;
+                else{
+                    y = q/(n-i-1);
+                }
+                x = sum/(i+1);
+               p.push( { abs(x-y) , i } );
+            }
+       
+        return p.top().second;
+    }
+};
