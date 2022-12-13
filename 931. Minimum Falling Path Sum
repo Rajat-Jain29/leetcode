@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void dfs(int i,int j, vector<vector<int>> &vis,vector<vector<int>> &matrix ){
+        if( i<0 || j<0 || i>=matrix.size() || j>= matrix.size()
+            || vis[i][j] == true  )
+            return ;
+        vis[i][j] = true;
+        dfs( i+1 ,j-1,vis,matrix );
+        dfs( i+1 ,j,vis,matrix );
+        dfs( i+1 ,j+1,vis,matrix );
+        
+    }
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int dp[n][n];
+        for(int i=0;i<n;i++)
+            dp[0][i] = matrix[0][i];
+        for(int i=1;i<n;i++){
+            for(int j=0;j<n;j++){
+                int d,l,r;
+                d = matrix[i][j] + dp[i-1][j];
+                if(j-1 >= 0)
+                    l = matrix[i][j] + dp[i-1][j-1];
+                else
+                    l = 1e9;
+                if( j+1 < n )   
+                    r = matrix[i][j] + dp[i-1][j+1];
+                else
+                    r = 1e9;
+                dp[i][j] = min( d,min(l,r) ); 
+            }
+        }
+        int res = INT_MAX;
+        for(int i=0;i<n;i++)
+            res = min(res , dp[n-1][i] );
+        return res;
+        // vector<vector<int>> vis( n, vector<int>(n,false) );
+        // int n = matrix.size();
+        // int res  = 0;
+        // for(int i=0;i<n;i++){
+        //     if( vis[0][i] == false ){
+        //         res = min(res , dfs(i,j,vis,matrix) );
+        //     }
+        // }
+        // return res;
+    }
+};
