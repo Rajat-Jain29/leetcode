@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        int k = 0,m=0,res=0; 
+        if( word[0] >= 'A' && word[0] <= 'Z'  )
+            res++;
+        for(int i=0;i<word.size();i++){
+            if( word[i] >= 'A' && word[i] <= 'Z' )
+                k++;
+            else if( word[i] >= 'a' && word[i] <= 'z' )
+                m++;        
+        }
+    return k == word.size() || m == word.size() || (res ==1 && m == word.size()-1 );
+    }
+};
