@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int n = numRows*2-2;
+        vector<string> str(s.length());
+        string res;
+        if(numRows == 1 || numRows >= s.size())
+	        return s;
+        for(int i=0;i<s.length();i++){
+            int down = i % n;
+            if(down < numRows)
+                str[down] += s[i];
+            else
+                str[n-down] += s[i];
+        }
+        for(auto it : str)
+            res += it;
+        return res;
+        
+        
+    }
+};
