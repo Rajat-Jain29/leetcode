@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+       unordered_map<int,int>map;
+    int distincts=0;
+    int maxLength = 0;
+
+    int windowStart = 0;
+    for (int windowEnd = 0; windowEnd < fruits.size(); windowEnd++) {
+        
+      if(map[fruits[windowEnd]]==0)
+           distincts++;      
+         map[fruits[windowEnd]]++;
+        
+      if(distincts<=2)
+           maxLength = max(maxLength, windowEnd - windowStart + 1);
+         
+      while(distincts > 2) {
+        
+        map[fruits[windowStart]]--;  
+        if(map[fruits[windowStart]]==0)
+           distincts--;
+        windowStart++;                       
+      }
+    }
+    return maxLength;  
+    }
+};
