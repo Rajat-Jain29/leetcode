@@ -1,0 +1,26 @@
+class Solution {
+public:
+void sumnum(TreeNode* root,int index,int &sum)
+{
+if(root==NULL)
+return;
+
+    if(!root->left and !root->right)
+    {
+        int now = index*10 + root->val;
+        sum += now;
+        return;
+    }
+    
+    sumnum(root->left,index*10+root->val,sum);
+    sumnum(root->right,index*10+root->val,sum);
+}
+int sumNumbers(TreeNode* root) {
+    
+    int sum = 0;   // total sum from root to leaf
+    int index = 0;  // sum till now 
+    sumnum(root,index,sum);
+    return sum;
+    
+}
+};
