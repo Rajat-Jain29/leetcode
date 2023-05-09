@@ -1,0 +1,92 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+
+
+#include <string>
+#include <ctime>
+
+class Block {
+public:
+    int index;
+    std::string data;
+    std::string hash;
+    std::string previousHash;
+    time_t timestamp;
+    Block* next;
+
+    Block(int index, std::string data, std::string previousHash, time_t timestamp) {
+        this->index = index;
+        this->data = data;
+        this->previousHash = previousHash;
+        this->timestamp = timestamp;
+        this->next = nullptr;
+        this->hash = calculateHash();
+    }
+
+    std::string calculateHash() {
+        // perform some cryptographic hash function on the input string
+        // ...
+        // return the hash result as a string
+        int random = rand()%100;
+        // perform some cryptographic hash function on the hash string
+        return std::to_string(random);
+    }
+};
+
+class Blockchain {
+public:
+    Block* head;
+    int size;
+
+    Blockchain() {
+        head = nullptr;
+        size = 0;
+    }
+
+    void addBlock(std::string data) {
+        if (head == nullptr) {
+            // add the first block
+            Block* newBlock = new Block(0, data, "0", time(0));
+            head = newBlock;
+            size++;
+        } else {
+            // add a new block to the end of the chain
+            Block* currentBlock = head;
+            while (currentBlock->next != nullptr) {
+                currentBlock = currentBlock->next;
+            }
+            Block* newBlock = new Block(currentBlock->index + 1, data, currentBlock->hash, time(0));
+            currentBlock->next = newBlock;
+            size++;
+        }
+    }
+
+    void printChain() {
+        Block* currentBlock = head;
+        while (currentBlock != nullptr) {
+            std::cout << "Block " << currentBlock->index << ": " << currentBlock->data << std::endl;
+            std::cout << "Hash: " << currentBlock->hash << std::endl;
+            std::cout << "Previous Hash: " << currentBlock->previousHash << std::endl;
+            std::cout << "Timestamp: " << currentBlock->timestamp << std::endl;
+            std::cout << std::endl;
+            currentBlock = currentBlock->next;
+        }
+    }
+};
+
+int main() {
+    Blockchain blockchain;
+    blockchain.addBlock("Hello, World!");
+    blockchain.addBlock("How are you?");
+    blockchain.addBlock("Goodbye!");
+    blockchain.addBlock("Goodbye!");
+    blockchain.printChain();
+    return 0;
+}
