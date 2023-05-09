@@ -1,3 +1,115 @@
+#include <bits/stdc++.h>
+#include <string>
+#include <ctime>
+
+using namespace std;
+class Block {
+public:
+    int index;
+    string data;
+    string hash;
+    string previousHash;
+    time_t timestamp;
+    Block* next;
+
+    Block(int index, string data, string previousHash, time_t timestamp) {
+        this->index = index;
+        this->data = data;
+        this->previousHash = previousHash;
+        this->timestamp = timestamp;
+        this->next = nullptr;
+        this->hash = calculateHash();
+    }
+
+    string calculateHash() {
+        // perform some cryptographic hash function on the input string
+        // ...
+        // return the hash result as a string
+        
+            string str_timestamp = ctime(&timestamp);
+        string blockData = to_string(index) + previousHash + str_timestamp + data;
+        int hashValue = 0;
+        for (char c : blockData) {
+            hashValue += static_cast<int>(c);
+        }
+        return to_string(hashValue);
+    }
+};
+
+class Blockchain {
+public:
+    Block* head;
+    int size;
+
+    Blockchain() {
+        head = nullptr;
+        size = 0;
+    }
+
+    void addBlock(string data) {
+        if (head == nullptr) {
+            // add the first block
+            Block* newBlock = new Block(0, data, "0", time(0));
+            head = newBlock;
+            size++;
+        } else {
+            // add a new block to the end of the chain
+            Block* currentBlock = head;
+            while (currentBlock->next != nullptr) {
+                currentBlock = currentBlock->next;
+            }
+            time_t t = time(nullptr);
+            Block* newBlock = new Block(currentBlock->index + 1, data, currentBlock->hash, t);
+            currentBlock->next = newBlock;
+            size++;
+        }
+    }
+
+    void printChain() {
+        Block* currentBlock = head;
+        while (currentBlock != nullptr) {
+            cout << "Block " << currentBlock->index << ": " << currentBlock->data << endl;
+            cout << "Hash: " << currentBlock->hash << endl;
+            cout << "Previous Hash: " << currentBlock->previousHash << endl;
+            cout << "Timestamp: " << currentBlock->timestamp << endl;
+            cout << endl;
+            currentBlock = currentBlock->next;
+        }
+    }
+};
+
+int main() {
+    Blockchain blockchain;
+    blockchain.addBlock("Hello, World!");
+    blockchain.addBlock("How are you?");
+    blockchain.addBlock("Goodbye!");
+    blockchain.addBlock("Goodbye!");
+    blockchain.printChain();
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************************************************
 
 Welcome to GDB Online.
