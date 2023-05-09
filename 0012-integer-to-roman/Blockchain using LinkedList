@@ -90,3 +90,140 @@ int main() {
     blockchain.printChain();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========================================================================
+
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <sstream>
+
+using namespace std;
+
+// Block structure
+struct Block {
+    int index;
+    string previousHash;
+    string timestamp;
+    string data;
+    string hash;
+    Block* next;
+
+    // Constructor
+    Block(int idx, string prevHash, string tstamp, string data) :
+            index(idx), previousHash(move(prevHash)), timestamp(move(tstamp)), data(move(data)), next(nullptr) {
+        hash = calculateHash();
+    }
+
+    // Calculate the hash for the block
+    string calculateHash() const {
+        string blockData = to_string(index) + previousHash + timestamp + data;
+        int hashValue = 0;
+        for (char c : blockData) {
+            hashValue += static_cast<int>(c);
+        }
+        return to_string(hashValue);
+    }
+};
+
+// Blockchain class
+class Blockchain {
+    
+public:
+    Block* head;
+    Block* tail;
+
+    // Constructor
+    Blockchain() : head(nullptr), tail(nullptr) {}
+
+    // Add a new block to the blockchain
+    void addBlock(const string& data) {
+        int index = tail ? tail->index + 1 : 0;
+        string previousHash = tail ? tail->hash : "0";
+        string timestamp = getCurrentTimestamp();
+
+        Block* newBlock = new Block(index, previousHash, timestamp, data);
+        if (!head) {
+            head = newBlock;
+        } else {
+            tail->next = newBlock;
+        }
+        tail = newBlock;
+    }
+
+    // Get the last block in the blockchain
+    Block getLastBlock() const {
+        return *tail;
+    }
+
+    // Check if the blockchain is valid
+    bool isChainValid() const {
+        Block* currentBlock = head->next;
+        Block* previousBlock = head;
+
+        while (currentBlock) {
+            // Check if the hash of the current block is valid
+            if (currentBlock->hash != currentBlock->calculateHash()) {
+                return false;
+            }
+
+            // Check if the previous hash of the current block matches the hash of the previous block
+            if (currentBlock->previousHash != previousBlock->hash) {
+                return false;
+            }
+
+            previousBlock = currentBlock;
+            currentBlock = currentBlock->next;
+        }
+        return true;
+    }
+
+private:
+    // Get the current timestamp as a string
+    string getCurrentTimestamp() const {
+        time_t currentTime = time(nullptr);
+        return ctime(&currentTime);
+    }
+};
+
+int main() {
+    // Create a blockchain
+    Blockchain blockchain;
+
+    // Add blocks to the blockchain
+    blockchain.addBlock("Data 1");
+    blockchain.addBlock("Data 2");
+    blockchain.addBlock("Data 3");
+
+    // Print the blockchain
+    Block* currentBlock = blockchain.head;
+    while (currentBlock) {
+        cout << "Block #" << currentBlock->index << "\n"
+             << "Timestamp: " << currentBlock->timestamp
+             << "Data: " << currentBlock->data << "\n"
+             << "Hash: " << currentBlock->hash << "\n"
+             << "Previous Hash: " << currentBlock->previousHash << "\n\n";
+        currentBlock = currentBlock->next;
+    }
+
+    // Check if the blockchain is valid
+    cout << "Is blockchain valid? " << (blockchain.isChainValid() ? "Yes" : "No") << endl;
+
+    return 0;
+}
